@@ -18,13 +18,15 @@ begin
   Rd = 287.
 ;****************************************
 
-  title = "1979-1998, JJA, IVT threshold = -30k"
+  dotthick = 0.01 ;thickness of N=1 markers
 
-  dir = "/glade/campaign/cgd/amp/aherring/annelise_backup/adams_folder/data/mapcount/"
+  title = "1979-1998, JJA, IVT threshold = -30k"
+  title = "1979-1998, JJA, IVT threshold = -50k"
+
   dir = "../data/mapcount/"
 
   season = "JJA."
-  ;;season = "JJA.-50k."
+  ;;season = "JJA.-50k." ;; -50k runs a lot faster - run this for debugging
 
   fname1 = (/"mapcount_f19."+season+"ESMF_f19.nc", \
 	    "mapcount_f09."+season+"ESMF_f19.nc", \
@@ -114,7 +116,7 @@ begin
 
 
    res@gsnMaskLambertConformal = True
-   res@gsnAddCyclic          = False
+   ;;res@gsnAddCyclic          = False
    ;;res@mpCenterLonF = 300.
    res@mpMinLonF =-130.
    res@mpMaxLonF =  0.
@@ -178,7 +180,7 @@ begin
              continue
            end if
            ;;add marker         
-           resg@gsMarkerSizeF = 0.005*var(i,j)
+           resg@gsMarkerSizeF = dotthick*var(i,j)
            pNam = unique_string("tmp")
            plot@$pNam$ = gsn_add_polymarker(wks,plot(n),lon(j),lat(i),resg)
          end do
@@ -190,7 +192,7 @@ begin
            continue
          end if
          ;;add marker
-         resg@gsMarkerSizeF = 0.005*var(i)
+         resg@gsMarkerSizeF = dotthick*var(i)
          pNam = unique_string("tmp")
          plot@$pNam$ = gsn_add_polymarker(wks,plot(n),lon(i),lat(i),resg)
        end do
@@ -204,6 +206,45 @@ begin
 
 ;;drawNDCGrid(wks)
 ;*****************************************************
+; Add legend
+;*****************************************************
+
+  restx                    = True                  ; text mods desired
+  restx@txFontHeightF      = 0.015                 ; change text size
+  restx@txJust             = "CenterLeft"          ; text justification
+
+  labels = (/"ESMF-f19","ESMF-pg2","TR-f19","TR-pg2"/)
+  xx = (/0.25,0.40,0.55,0.67/)
+  yy = 0.05
+
+  do m=0,3
+    resg@gsMarkerColor = colors(m)
+    resg@gsMarkerSizeF = dotthick*5.
+    gsn_polymarker_ndc(wks,xx(m),yy,resg)
+    gsn_text_ndc(wks,labels(m),xx(m)+0.02,yy,restx)
+  end do
+  delete(xx)
+
+  resg@gsMarkerColor = "black"
+  yy = 0.02
+
+  xx = 0.39
+  resg@gsMarkerSizeF = dotthick*1.
+  gsn_polymarker_ndc(wks,xx,yy,resg)
+  gsn_text_ndc(wks,"N=1",xx+0.02,yy,restx)
+
+  xx = 0.47
+  resg@gsMarkerSizeF = dotthick*5.
+  gsn_polymarker_ndc(wks,xx,yy,resg)
+  gsn_text_ndc(wks,"N=5",xx+0.02,yy,restx)
+
+  xx = 0.55
+  resg@gsMarkerSizeF = dotthick*10.
+  gsn_polymarker_ndc(wks,xx,yy,resg)
+  gsn_text_ndc(wks,"N=10",xx+0.02,yy,restx)
+
+
+;*****************************************************
 ; Plot panel
 ;*****************************************************
 
@@ -211,15 +252,17 @@ begin
   resP@gsnFrame         = False                  ; don't advance panel plot
 
   resP@gsnPanelFigureStrings = runnams
-  resP@gsnPanelFigureStringsFontHeightF = 0.015
+  resP@gsnPanelFigureStringsFontHeightF = 0.010
   ;resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "TopLeft"
 
+  ;;resP@gsnPanelTop = 0.90
+  resP@gsnPanelBottom = 0.08
   ;resP@gsnPanelLeft = 0.05
   ;resP@gsnPanelRight = 0.95
 
-  resP@txString = title
+  ;;resP@txString = title
   gsn_panel(wks,plot,(/4,2/),resP)               ; now draw as one plot
 
 frame(wks)

@@ -215,7 +215,7 @@ begin
 
   labels = (/"ESMF-f19","ESMF-pg2","TR-f19","TR-pg2"/)
   xx = (/0.25,0.40,0.55,0.67/)
-  yy = 0.05
+  yy = 0.03;;0.05
 
   do m=0,3
     resg@gsMarkerColor = colors(m)
@@ -225,23 +225,23 @@ begin
   end do
   delete(xx)
 
-  resg@gsMarkerColor = "black"
-  yy = 0.02
+  resg@gsMarkerColor = "grey69"
+  yy = 0.065;;0.02
 
-  xx = 0.39
+  xx = 0.385
   resg@gsMarkerSizeF = dotthick*1.
   gsn_polymarker_ndc(wks,xx,yy,resg)
-  gsn_text_ndc(wks,"N=1",xx+0.02,yy,restx)
+  gsn_text_ndc(wks,"n=1",xx+0.02,yy,restx)
 
-  xx = 0.47
+  xx = 0.465
   resg@gsMarkerSizeF = dotthick*5.
   gsn_polymarker_ndc(wks,xx,yy,resg)
-  gsn_text_ndc(wks,"N=5",xx+0.02,yy,restx)
+  gsn_text_ndc(wks,"n=5",xx+0.02,yy,restx)
 
-  xx = 0.55
+  xx = 0.545
   resg@gsMarkerSizeF = dotthick*10.
   gsn_polymarker_ndc(wks,xx,yy,resg)
-  gsn_text_ndc(wks,"N=10",xx+0.02,yy,restx)
+  gsn_text_ndc(wks,"n=10",xx+0.02,yy,restx)
 
 
 ;*****************************************************

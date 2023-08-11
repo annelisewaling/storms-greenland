@@ -102,7 +102,7 @@ begin
    res@gsnSpreadColors   = True               ; use full range of color map
    res@cnInfoLabelOn        = False
    res@lbLabelBarOn         = False
-   res@tiMainFontHeightF = 0.006
+   res@tiMainFontHeightF = 0.0007
 
    res@vpWidthF  = 0.3
    res@vpHeightF = 0.8
@@ -235,7 +235,7 @@ begin
 
   resP@gsnPanelFigureStrings = runnams
   ;resP@gsnPanelFigureStrings = (/"a.","b.","c.","d.","e.","f.","g."/)
-  resP@gsnPanelFigureStringsFontHeightF = 0.008;;0.01
+  resP@gsnPanelFigureStringsFontHeightF = 0.009
   resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "TopLeft"

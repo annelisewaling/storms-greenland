@@ -104,18 +104,18 @@ begin
 
   yaxis1b = "# ARs overlapping GrIS"
   ymin1 =   0.
-  ymax1 = 600.
+  ymax1 = 700.
   factor1 = 1.
   
   yaxis1 = "total # ARs"
 
-  yaxis2 = "AR Area (1E+10 x m2)"
+  yaxis2 = "AR Area (10~S~10~N~ m~S~2~N~)"
   ymin2 = 120.
   ymax2 = 220.
   factor2 = 1.e-10
 
   ;yaxis3 = "% AR overlap area/total AR size"
-  yaxis3 = "AR Overlap Area (1E+10 x m2)"
+  yaxis3 = "AR Overlap Area (10~S~10~N~ m~S~2~N~)"
   ymin3 = 0.0
   ymax3 = 4.5
   factor3 = 1.e-10
@@ -185,9 +185,9 @@ begin
    res@tmXTMinorOutwardLengthF = 0.
    res@tmYRMinorOutwardLengthF = 0.
 
-   res@tiXAxisFontHeightF = 0.015
-   res@tiYAxisFontHeightF = 0.015
-   res@tmXBLabelFontHeightF = 0.011
+   res@tiXAxisFontHeightF = 0.017
+   res@tiYAxisFontHeightF = 0.017
+   res@tmXBLabelFontHeightF = 0.015
    res@tmYLLabelFontHeightF = 0.015
    
    res@gsnYRefLine = 0.
@@ -286,14 +286,14 @@ begin
 
    if (n.eq.0) then
 
-     ;res@tiXAxisString   = " " 
+     res@gsnLeftStringFontHeightF    = 0.002 
 
      res@tiYAxisString   = yaxis1
      res@trYMinF         = ymin1
      res@trYMaxF         = ymax1
      res@trXMinF         = xmin1
      res@trXMaxF         = xmax1
-     res@xyDashPatterns = 1
+     res@xyDashPatterns = 0
      plot(0)  = gsn_csm_xy(wks,xtime1,var1b,res)
 
      ;res@tiXAxisString   = xaxis     
@@ -347,7 +347,7 @@ begin
      delete(res@tiXAxisString)
 
    else
-     res@xyDashPatterns = 1
+     res@xyDashPatterns = 0
      tmp1 = gsn_csm_xy(wks,xtime1,var1b,res)
      overlay(plot(0),tmp1)
      delete(tmp1)    
@@ -478,7 +478,7 @@ begin
 ; Add legend
 ;*****************************************************
  txres = True
- txres@txFontHeightF = 0.008
+ txres@txFontHeightF = 0.012
  txres@txJust = "CenterLeft"
 
  resln             = True
@@ -486,14 +486,14 @@ begin
  resln@lgBoxBackground = 1
 
  ;yy = (/0.74,0.728,0.716,0.704,0.692,0.68,0.668,0.656/)-0.51;-0.47;;+0.23
- xx = 0.27
+ xx = 0.28
  dx = 0.03
  ;do n = 0,nfiles-1
  ;  resln@gsLineColor = colors(n)
  ;  gsn_polyline_ndc(wks,(/xx,xx+dx/),(/yy(n),yy(n)/),resln)
  ;  gsn_text_ndc(wks,"  " + labels(n),xx+dx,yy(n),txres)
  ;end do
- yy = (/0.74,0.725,0.71,0.695,0.68,0.665,0.65,0.635/)-0.5
+ yy = (/0.74,0.725,0.71,0.695,0.68,0.665,0.65,0.635/)-0.52
  ;yy = (/0.74,0.72,0.70,0.68,0.66,0.64,0.62, 0.60/)-0.10
  do n = 0,nfiles-1
    resln@gsLineColor = colors(n)
@@ -514,7 +514,7 @@ begin
 
   ;;resP@txString = plotTitle
   resP@gsnPanelFigureStrings = (/"a.","b.","c.","d."/)
-  resP@gsnPanelFigureStringsFontHeightF = 0.02
+  resP@gsnPanelFigureStringsFontHeightF = 0.015
   ;resP@gsnPanelFigureStringsPerimOn     = True
   ;resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "BottomLeft"

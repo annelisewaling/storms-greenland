@@ -305,7 +305,7 @@ begin
   ;resP@gsnPaperOrientation = "portrait"
 
   resP@gsnPanelFigureStrings = runnams
-  resP@gsnPanelFigureStringsFontHeightF = 0.007
+  resP@gsnPanelFigureStringsFontHeightF = 0.012
   resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "TopLeft"
@@ -318,7 +318,7 @@ begin
   resP@lbTitleString              = lbtitle
   resP@lbTitlePosition            = "Bottom"
   resP@lbTitleFontHeightF         = 0.015
-  resP@lbLabelFontHeightF         = 0.01
+  resP@lbLabelFontHeightF         = 0.012
   resP@pmLabelBarOrthogonalPosF   = -0.02
   ;print(nframes)
   ;resP@txString = pltTitle

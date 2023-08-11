@@ -594,6 +594,7 @@ for (df,name) in zip(ann_dfs,labels):
 
 # In[30]:
 
+medianprops = dict(linestyle='-', linewidth=4)
 
 fig, ax = plt.subplots(figsize=(20,10))
 
@@ -606,14 +607,14 @@ df_sea_AG.fillna(0,inplace=True)
 df_sea_era5.fillna(0,inplace=True)
 df_sea_merra2.fillna(0,inplace=True)
 
-ax.boxplot(df_sea_pg2.T, positions = [0.7,1.7,2.7,3.7], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[2]))
-ax.boxplot(df_sea_pg3.T, positions = [0.8,1.8,2.8,3.8], widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[3]))
-ax.boxplot(df_sea_f19.T, positions = [0.9,1.9,2.9,3.9], widths = 0.1, manage_ticks = False, patch_artist=True, boxprops=dict(facecolor=colors[0]))
-ax.boxplot(df_sea_f09.T, positions = [1,2,3,4], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[1]))
-ax.boxplot(df_sea_A.T, positions = [1.1,2.1,3.1,4.1], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[4]))
-ax.boxplot(df_sea_AG.T, positions = [1.2,2.2,3.2,4.2], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[5]))
-ax.boxplot(df_sea_era5.T, positions = [1.3,2.3,3.3,4.3], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[6]))
-ax.boxplot(df_sea_merra2.T, positions = [1.4,2.4,3.4,4.4], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[7]))
+ax.boxplot(df_sea_pg2.T, positions = [0.7,1.7,2.7,3.7], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[2]), medianprops=medianprops)
+ax.boxplot(df_sea_pg3.T, positions = [0.8,1.8,2.8,3.8], widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[3]), medianprops=medianprops)
+ax.boxplot(df_sea_f19.T, positions = [0.9,1.9,2.9,3.9], widths = 0.1, manage_ticks = False, patch_artist=True, boxprops=dict(facecolor=colors[0]), medianprops=medianprops)
+ax.boxplot(df_sea_f09.T, positions = [1,2,3,4], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[1]), medianprops=medianprops)
+ax.boxplot(df_sea_A.T, positions = [1.1,2.1,3.1,4.1], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[4]), medianprops=medianprops)
+ax.boxplot(df_sea_AG.T, positions = [1.2,2.2,3.2,4.2], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[5]), medianprops=medianprops)
+ax.boxplot(df_sea_era5.T, positions = [1.3,2.3,3.3,4.3], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[6]), medianprops=medianprops)
+ax.boxplot(df_sea_merra2.T, positions = [1.4,2.4,3.4,4.4], manage_ticks = False, widths = 0.1, patch_artist=True, boxprops=dict(facecolor=colors[7]), medianprops=medianprops)
 
 
 f19_patch = mpatches.Patch(color=colors[0], label=labels[0])
@@ -626,7 +627,7 @@ era5_patch = mpatches.Patch(color=colors[6], label=labels[6])
 merra2_patch = mpatches.Patch(color=colors[7], label=labels[7])
 
 patches = [pg2_patch,pg3_patch,f19_patch,f09_patch,A_patch,AG_patch,era5_patch,merra2_patch]
-plt.legend(handles=[pg2_patch,pg3_patch,f19_patch,f09_patch,A_patch,AG_patch,era5_patch,merra2_patch], loc="upper left", fontsize = 14, frameon=False)
+plt.legend(handles=[pg2_patch,pg3_patch,f19_patch,f09_patch,A_patch,AG_patch,era5_patch,merra2_patch], loc="upper left", fontsize = 16, frameon=False)
 
 fig.canvas.draw()
 
@@ -638,17 +639,14 @@ axis_names[3] = 'fall'
 
 ax.set_xticklabels(axis_names)
 
-plt.xticks([1.05,2.05,3.05,4.05], fontsize=15, labels = axis_names)
-plt.yticks(fontsize=15)
+plt.xticks([1.05,2.05,3.05,4.05], fontsize=25, labels = axis_names)
+plt.yticks(fontsize=25)
 
-plt.xlabel("season",fontsize = 20)
-plt.ylabel("number of ARs", fontsize = 20)
+plt.xlabel("season",fontsize = 30)
+plt.ylabel("number of ARs", fontsize = 30)
 
 
-plt.savefig("seasonalARs.pdf",format = 'pdf')
-plt.show()
-
-#plt.savefig("seasonalARs.pdf",format = 'pdf')
+plt.savefig("temp_seasonal.pdf",format = 'pdf')
 
 
 # In[29]:
@@ -739,7 +737,7 @@ plt.xticks(np.arange(1979,1999,step = 2))
 
 fig.savefig("annualARs.pdf",format = 'pdf', bbox_inches='tight')
 
-plt.show()
+#plt.show()
 
 
 # In[ ]:

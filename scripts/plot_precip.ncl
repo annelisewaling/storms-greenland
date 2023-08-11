@@ -179,10 +179,10 @@ nfiles = dimsizes(fname11)
    res@tmXTMinorOutwardLengthF = 0.
    res@tmYRMinorOutwardLengthF = 0.
 
-   res@tiXAxisFontHeightF = 0.015
-   res@tiYAxisFontHeightF = 0.015
-   res@tmXBLabelFontHeightF = 0.011
-   res@tmYLLabelFontHeightF = 0.015
+   res@tiXAxisFontHeightF = 0.017
+   res@tiYAxisFontHeightF = 0.017
+   res@tmXBLabelFontHeightF = 0.015
+   res@tmYLLabelFontHeightF = 0.017
    
    res@gsnYRefLine = 0.
    
@@ -418,13 +418,14 @@ end if
 ; Add legend
 ;*****************************************************
  txres = True
- txres@txFontHeightF = 0.010
+ txres@txFontHeightF = 0.017
  txres@txJust = "CenterLeft"
 
  resln             = True
  resln@gsLineThicknessF = res@xyLineThicknessF
 
- yy = (/0.74,0.725,0.71,0.695,0.68,0.665,0.65,0.635/)+0.1;-0.07
+ ;yy = (/0.74,0.725,0.71,0.695,0.68,0.665,0.65,0.635/)+0.1;-0.07
+ yy = (/0.74,0.72,0.7,0.68,0.66,0.64,0.62,0.6/)+0.1
  xx = 0.17
  dx = 0.03
  do n = 0,nfiles-1
@@ -463,7 +464,7 @@ end if
   ;;resP@txString = plotTitle
   ;;resP@gsnPanelFigureStrings = runnams
   resP@gsnPanelFigureStrings= (/"a.","b."/)
-  resP@gsnPanelFigureStringsFontHeightF = 0.03
+  resP@gsnPanelFigureStringsFontHeightF = 0.02
   resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "BottomLeft"

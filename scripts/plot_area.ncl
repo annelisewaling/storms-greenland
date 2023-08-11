@@ -484,9 +484,9 @@ varsum_ERA5_2_f19 = varsum_ERA5_2_f19/2
 varsum_MERRA2_2_f19 = varsum_MERRA2_2_f19;/2
 ;print("Is varsumf19 all missing ? " + all(ismissing(varsum_f19))) 
 
-res@gsnCenterStringFontHeightF = 0.03
+res@gsnCenterStringFontHeightF = 0.04
 
-res@tiYAxisFontHeightF    = 0.03
+res@tiYAxisFontHeightF    = 0.04
 res@tiYAxisString        = "f19 remapped"
 ;res@tiYAxisJust          = "Center"
 res@tiYAxisSide          = "Left"
@@ -553,7 +553,7 @@ plot(15) = gsn_csm_contour_map(wks,varsum_MERRA2_2_pg2,res)
   ;resP@gsnPaperOrientation = "portrait"
 
   ;resP@gsnPanelFigureStrings = runnams
-  resP@gsnPanelFigureStringsFontHeightF = 0.007
+  resP@gsnPanelFigureStringsFontHeightF = 0.015
   resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "TopLeft"
@@ -567,7 +567,7 @@ plot(15) = gsn_csm_contour_map(wks,varsum_MERRA2_2_pg2,res)
   ;resP@lbTitleString              = lbtitle
   resP@lbTitlePosition            = "Bottom"
   resP@lbTitleFontHeightF         = 0.015
-  resP@lbLabelFontHeightF         = 0.01
+  resP@lbLabelFontHeightF         = 0.012
   resP@pmLabelBarOrthogonalPosF   = -0.02
 
   res@vpWidthF  = 0.3		; set width of plot 

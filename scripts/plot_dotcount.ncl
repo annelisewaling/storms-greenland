@@ -225,7 +225,7 @@ begin
   end do
   delete(xx)
 
-  resg@gsMarkerColor = "grey69"
+  resg@gsMarkerColor = "grey10";"grey69"
   yy = 0.065;;0.02
 
   xx = 0.385
@@ -252,7 +252,7 @@ begin
   resP@gsnFrame         = False                  ; don't advance panel plot
 
   resP@gsnPanelFigureStrings = runnams
-  resP@gsnPanelFigureStringsFontHeightF = 0.010
+  resP@gsnPanelFigureStringsFontHeightF = 0.015
   ;resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "TopLeft"

@@ -83,8 +83,7 @@ begin
              "MERRA2"/)
   
 
-
-  colors = (/"blue","deepskyblue","green4","green","darkorchid4","magenta","black", "grey40"/)
+  colors = (/"blue","deepskyblue","green4","green","darkorchid4","magenta","black", "black"/)
 
 ;******************************************************
 
@@ -103,21 +102,21 @@ begin
   xtime5 = camframes
 
   yaxis1b = "# ARs overlapping GrIS"
-  ymin1 =   0.
-  ymax1 = 700.
+  ymin1 =   1.
+  ymax1 = 1000.
   factor1 = 1.
   
   yaxis1 = "total # ARs"
 
   yaxis2 = "AR Area (10~S~10~N~ m~S~2~N~)"
-  ymin2 = 120.
-  ymax2 = 220.
+  ymin2 = 140.
+  ymax2 = 215.
   factor2 = 1.e-10
 
   ;yaxis3 = "% AR overlap area/total AR size"
   yaxis3 = "AR Overlap Area (10~S~10~N~ m~S~2~N~)"
-  ymin3 = 0.0
-  ymax3 = 4.5
+  ymin3 = 0.2
+  ymax3 = 4.3
   factor3 = 1.e-10
 
   xaxis = "Days relative to max overlap with GrIS"
@@ -132,16 +131,16 @@ begin
   ymax5 = 700.
   factor5 = 1
 
-  xmin1 = -2.
-  xmax1 =  2.
+  xmin1 = -2.5
+  xmax1 =  2.5
   xmin2 = -2.5
   xmax2 =  2.5
   xmin3 = -2.5
   xmax3 =  2.5
-  xmin4 = -2.
-  xmax4 = 2.
-  xmin5 = -2.
-  xmax5 = 2.
+  xmin4 = -2.5
+  xmax4 = 2.5
+  xmin5 = -2.5
+  xmax5 = 2.5
 
   pltNam = "temp_lines"
 
@@ -191,7 +190,7 @@ begin
    res@tmYLLabelFontHeightF = 0.015
    
    res@gsnYRefLine = 0.
-   
+
    ;;; transparent polygons
    gsres                = True
    gsres@gsFillOpacityF = 0.1;;0.3
@@ -214,6 +213,9 @@ begin
 
    var1 = factor1*var1
    yp1 = factor1*yp1
+
+   var1 = where(var1.le.0,1.e-20,var1)
+   yp1 = where(yp1.le.0,1.e-20,yp1)
 
    print("load:"+subdir_scrip+fname1b(n))
    f = addfile(subdir_scrip + fname1b(n),"r")
@@ -281,6 +283,9 @@ begin
    delete(f)
 
    res@xyDashPatterns = 0
+   if (n.eq.nfiles-1) then
+     res@xyDashPatterns = 16
+   end if
    res@xyLineThicknessF  = 4
    res@xyLineColors = colors(n)
 
@@ -290,36 +295,50 @@ begin
 
      res@tiYAxisString   = yaxis1
      res@trYMinF         = ymin1
-     res@trYMaxF         = ymax1
+     res@trYMaxF         = 650.;;ymax1
      res@trXMinF         = xmin1
      res@trXMaxF         = xmax1
-     res@xyDashPatterns = 0
      plot(0)  = gsn_csm_xy(wks,xtime1,var1b,res)
 
      ;res@tiXAxisString   = xaxis     
+
+     res@xyYStyle ="Log"
+
+     res@tmGridDrawOrder = "PreDraw"
+     res@tmXMajorGrid= True
+     res@tmXMajorGridLineColor = "grey40"
+     res@tmXMajorGridThicknessF      = 1.
+     res@tmXMinorGrid= True
+     res@tmXMinorGridLineColor = "grey40"
+     res@tmXMinorGridThicknessF      = 1.
+     res@tmXMinorGridLineDashPattern = 2
+     res@tmYMajorGrid= True
+     res@tmYMajorGridLineColor = "grey40"
+     res@tmYMajorGridThicknessF      = 1.
+     res@tmYMinorGrid= True
+     res@tmYMinorGridLineColor = "grey40"
+     res@tmYMinorGridThicknessF      = 1.
+     res@tmYMinorGridLineDashPattern = 2
 
      res@tiYAxisString   = yaxis1b
      res@trYMinF         = ymin1
      res@trYMaxF         = ymax1
      res@trXMinF         = xmin1
      res@trXMaxF         = xmax1
-     res@xyDashPatterns = 0
-     plot(1)  = gsn_csm_xy(wks,xtime1,var1,res) 
-  
-     ;delete(res@tiXAxisString);  = " "     
+     plot(2)  = gsn_csm_xy(wks,xtime1,var1,res) 
+     delete(res@xyYStyle) 
 
-     ;res@xyDashPatterns = 1
-     ;tmp1b = gsn_csm_xy(wks,xtime1,var1b,res)
-     ;overlay(plot(0),tmp1b)
-     ;delete(tmp1b)
-     res@xyDashPatterns = 0
+     res@tmXMajorGrid= False
+     res@tmYMajorGrid= False
+     res@tmXMinorGrid= False
+     res@tmYMinorGrid= False
 
      res@tiYAxisString   = yaxis2
      res@trYMinF         = ymin2
      res@trYMaxF         = ymax2
      res@trXMinF         = xmin2
      res@trXMaxF         = xmax2
-     plot(2)  = gsn_csm_xy(wks,xtime2,var2,res)
+     plot(1)  = gsn_csm_xy(wks,xtime2,var2,res)
 
      res@tiXAxisString   = xaxis
 
@@ -330,50 +349,24 @@ begin
      res@trXMaxF         = xmax3
      plot(3)  = gsn_csm_xy(wks,xtime3,var3,res)
     
-     res@tiYAxisString   = yaxis4
-     res@trYMinF         = ymin4
-     res@trYMaxF         = ymax4
-     res@trXMinF         = xmin4
-     res@trXMaxF         = xmax4
-     ;plot(0) = gsn_csm_xy(wks,xtime4,var4,res)
-
-     res@tiYAxisString   = yaxis5
-     res@trYMinF         = ymin5
-     res@trYMaxF         = ymax5
-     res@trXMinF         = xmin5
-     res@trXMaxF         = xmax5
-     ;plot(0) = gsn_csm_xy(wks,xtime5,var5,res)
-
      delete(res@tiXAxisString)
 
    else
-     res@xyDashPatterns = 0
      tmp1 = gsn_csm_xy(wks,xtime1,var1b,res)
      overlay(plot(0),tmp1)
      delete(tmp1)    
 
-     res@xyDashPatterns = 0
      tmp1b = gsn_csm_xy(wks,xtime1,var1,res)
-     overlay(plot(1),tmp1b)
+     overlay(plot(2),tmp1b)
      delete(tmp1b)
-     res@xyDashPatterns = 0
 
      tmp2 = gsn_csm_xy(wks,xtime2,var2,res)
-     overlay(plot(2),tmp2)
+     overlay(plot(1),tmp2)
      delete(tmp2)
 
      tmp3 = gsn_csm_xy(wks,xtime3,var3,res)
      overlay(plot(3),tmp3)
      delete(tmp3)
-
-     tmp4 = gsn_csm_xy(wks,xtime4,var4,res)
-     ;overlay(plot(0),tmp4)
-     delete(tmp4)
-
-     tmp5 = gsn_csm_xy(wks,xtime5,var5,res)
-     ;overlay(plot(0),tmp5)
-     delete(tmp5)
-
    end if
    delete([/var1,var2,var3,var1b,var4,var5/])
 
@@ -399,9 +392,6 @@ begin
    do m = 0,m2-1
      xxp2(m) = camframes(tointeger(xp2(m)))
    end do
-
-   ;xxp2@_FillValue = default_fillvalue("float")
-   ;xxp2 = where(abs(xxp2).gt.2.25,xxp2@_FillValue,xxp2)
 
    xp3 = xp3 - 1
    m3 = dimsizes(xp3)
@@ -432,7 +422,7 @@ begin
    gsres@gsFillColor    = colors(n)
    
    polystr = unique_string("hum")
-   plot@$polystr$ = gsn_add_polygon(wks,plot(1),xxp1,yyp1,gsres)
+   plot@$polystr$ = gsn_add_polygon(wks,plot(2),xxp1,yyp1,gsres)
    delete([/yyp1,xxp1,xp1,yp1/])
 
    yyp1b = yp1b
@@ -444,7 +434,7 @@ begin
    yyp2 = yp2
    
    polystr = unique_string("hum")
-   plot@$polystr$ = gsn_add_polygon(wks,plot(2),xxp2,yyp2,gsres)
+   plot@$polystr$ = gsn_add_polygon(wks,plot(1),xxp2,yyp2,gsres)
    delete([/xxp2,yyp2,xp2,yp2/])
 
    yyp3 = yp3
@@ -485,18 +475,15 @@ begin
  resln@gsLineThicknessF = res@xyLineThicknessF
  resln@lgBoxBackground = 1
 
- ;yy = (/0.74,0.728,0.716,0.704,0.692,0.68,0.668,0.656/)-0.51;-0.47;;+0.23
  xx = 0.28
  dx = 0.03
- ;do n = 0,nfiles-1
- ;  resln@gsLineColor = colors(n)
- ;  gsn_polyline_ndc(wks,(/xx,xx+dx/),(/yy(n),yy(n)/),resln)
- ;  gsn_text_ndc(wks,"  " + labels(n),xx+dx,yy(n),txres)
- ;end do
- yy = (/0.74,0.725,0.71,0.695,0.68,0.665,0.65,0.635/)-0.52
- ;yy = (/0.74,0.72,0.70,0.68,0.66,0.64,0.62, 0.60/)-0.10
+ yy = (/0.74,0.725,0.71,0.695,0.68,0.665,0.65,0.635/)-0.535
  do n = 0,nfiles-1
    resln@gsLineColor = colors(n)
+   resln@gsLineDashPattern = 0
+   if (n.eq.nfiles-1) then
+     resln@gsLineDashPattern = 16
+   end if
    gsn_polyline_ndc(wks,(/xx,xx+dx/),(/yy(n),yy(n)/),resln)
    gsn_text_ndc(wks,"  " + labels(n),xx+dx,yy(n),txres)
  end do
@@ -517,7 +504,7 @@ begin
   resP@gsnPanelFigureStringsFontHeightF = 0.015
   ;resP@gsnPanelFigureStringsPerimOn     = True
   ;resP@gsnPanelFigureStringsBackgroundFillColor = "white"
-  resP@amJust           = "BottomLeft"
+  resP@amJust           = "TopLeft"
   resP@gsnPanelLeft = 0.05
   resP@gsnPanelRight = 0.95
   ;resP@gsnPanelBottom   = 0.1

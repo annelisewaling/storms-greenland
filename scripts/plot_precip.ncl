@@ -131,7 +131,7 @@ labels = (/"f19", \
   ymin1 = 0.
   ymax1 = 75.
   ymin2 = 50. 
-  ymax2 = 110.
+  ymax2 = 150.;110.
   ymin2 = 0.    
   ymax2 = 190.
 

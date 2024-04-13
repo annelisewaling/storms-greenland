@@ -45,8 +45,12 @@ merra2 = "MERRA2"
 E_dir = "ESMF/"
 TR_dir = "TempestRemap/"
 
+degsign = u'\N{DEGREE SIGN}'
+
 fnames = [f19,f09,pg2,pg3,arc,arcG,era5, merra2]
-labels = ['f19','f09','ne30pg2','ne30pg3','ARCTIC','ARCTICGRIS','ERA5', 'MERRA2']
+labels = ["LL_2"+degsign,"LL_1"+degsign,"QU_1.5"+degsign,"QU_1"+degsign,
+         "VR_0.25"+degsign,"VR_0.125"+degsign,"ERA5","MERRA2"]
+#labels = ['f19','f09','ne30pg2','ne30pg3','ARCTIC','ARCTICGRIS','ERA5', 'MERRA2']
 colors = ['blue','deepskyblue','green','lime','purple','magenta','black', 'grey']
 
 # Setting up "days since" to datetime
@@ -636,6 +640,9 @@ axis_names[0] = 'winter'
 axis_names[1] = 'spring'
 axis_names[2] = 'summer'
 axis_names[3] = 'fall'
+
+plt.rcParams["axes.edgecolor"] = "black"
+ax.set_facecolor('white')
 
 ax.set_xticklabels(axis_names)
 

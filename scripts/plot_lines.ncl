@@ -5,7 +5,7 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/esmf/ESMF_regridding.ncl"
-load "/gpfs/fs1/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
+load "/glade/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
 ;**************************************
 begin
   p0 = 1000.d2
@@ -81,6 +81,15 @@ begin
              "ARCTICGRIS", \
              "ERA5" , \
              "MERRA2"/)
+
+  labels  = (/"LL_2~S~o~N~", \
+              "LL_1~S~o~N~", \
+              "QU_1.5~S~o~N~", \
+              "QU_1~S~o~N~", \
+              "VR_0.25~S~o~N~", \
+              "VR_0.125~S~o~N~", \
+              "ERA5", \
+              "MERRA2"/)
   
 
   colors = (/"blue","deepskyblue","green4","green","darkorchid4","magenta","black", "black"/)
@@ -325,7 +334,7 @@ begin
      res@trYMaxF         = ymax1
      res@trXMinF         = xmin1
      res@trXMaxF         = xmax1
-     plot(2)  = gsn_csm_xy(wks,xtime1,var1,res) 
+     plot(1)  = gsn_csm_xy(wks,xtime1,var1,res) 
      delete(res@xyYStyle) 
 
      res@tmXMajorGrid= False
@@ -338,7 +347,7 @@ begin
      res@trYMaxF         = ymax2
      res@trXMinF         = xmin2
      res@trXMaxF         = xmax2
-     plot(1)  = gsn_csm_xy(wks,xtime2,var2,res)
+     plot(2)  = gsn_csm_xy(wks,xtime2,var2,res)
 
      res@tiXAxisString   = xaxis
 
@@ -357,11 +366,11 @@ begin
      delete(tmp1)    
 
      tmp1b = gsn_csm_xy(wks,xtime1,var1,res)
-     overlay(plot(2),tmp1b)
+     overlay(plot(1),tmp1b)
      delete(tmp1b)
 
      tmp2 = gsn_csm_xy(wks,xtime2,var2,res)
-     overlay(plot(1),tmp2)
+     overlay(plot(2),tmp2)
      delete(tmp2)
 
      tmp3 = gsn_csm_xy(wks,xtime3,var3,res)
@@ -422,7 +431,7 @@ begin
    gsres@gsFillColor    = colors(n)
    
    polystr = unique_string("hum")
-   plot@$polystr$ = gsn_add_polygon(wks,plot(2),xxp1,yyp1,gsres)
+   plot@$polystr$ = gsn_add_polygon(wks,plot(1),xxp1,yyp1,gsres)
    delete([/yyp1,xxp1,xp1,yp1/])
 
    yyp1b = yp1b
@@ -434,7 +443,7 @@ begin
    yyp2 = yp2
    
    polystr = unique_string("hum")
-   plot@$polystr$ = gsn_add_polygon(wks,plot(1),xxp2,yyp2,gsres)
+   plot@$polystr$ = gsn_add_polygon(wks,plot(2),xxp2,yyp2,gsres)
    delete([/xxp2,yyp2,xp2,yp2/])
 
    yyp3 = yp3
@@ -478,6 +487,7 @@ begin
  xx = 0.28
  dx = 0.03
  yy = (/0.74,0.725,0.71,0.695,0.68,0.665,0.65,0.635/)-0.535
+ yy = (/0.74,0.72,0.70,0.68,0.66,0.64,0.62,0.60/)-0.53
  do n = 0,nfiles-1
    resln@gsLineColor = colors(n)
    resln@gsLineDashPattern = 0

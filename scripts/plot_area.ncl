@@ -5,7 +5,7 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/esmf/ESMF_regridding.ncl"
-load "/gpfs/fs1/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
+load "/glade/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
 ;**************************************
 onemnth = False
 
@@ -42,6 +42,16 @@ grid_res = (/"f19", \
              "ARCTICGRIS", \
              "ERA5", \
              "MERRA2" /)
+
+grid_res  = (/"LL_2~S~o~N~", \
+            "LL_1~S~o~N~", \
+            "QU_1.5~S~o~N~", \
+            "QU_1~S~o~N~", \
+            "VR_0.25~S~o~N~", \
+            "VR_0.125~S~o~N~", \
+            "ERA5", \
+            "MERRA2"/)
+
 file_n = "*cmasks.nc"
 
 varsum_f19_2_f19 = new((/96,144/),integer)
@@ -487,12 +497,12 @@ varsum_MERRA2_2_f19 = varsum_MERRA2_2_f19;/2
 res@gsnCenterStringFontHeightF = 0.04
 
 res@tiYAxisFontHeightF    = 0.04
-res@tiYAxisString        = "f19 remapped"
+res@tiYAxisString        = "LL_2~S~o~N~ remapped"
 ;res@tiYAxisJust          = "Center"
 res@tiYAxisSide          = "Left"
 res@tiYAxisPosition      = "Center"
 
-res@gsnCenterString = "f19"
+res@gsnCenterString = "LL_2~S~o~N~"
 plot(0) = gsn_csm_contour_map(wks,varsum_f19_2_f19,res)
 
 res@tiYAxisString        = ""
@@ -500,15 +510,15 @@ res@tiYAxisString        = ""
 res@sfXCellBounds        = plot_XCell
 res@sfYCellBounds        = plot_YCell
 
-res@gsnCenterString = "f09"
+res@gsnCenterString = "LL_1~S~o~N~"
 plot(1) = gsn_csm_contour_map(wks,varsum_f09_2_f19,res)
-res@gsnCenterString = "ne30pg2"
+res@gsnCenterString = "QU_1.5~S~o~N~"
 plot(2) = gsn_csm_contour_map(wks,varsum_ne30pg2_2_f19,res)
-res@gsnCenterString = "ne30pg3"
+res@gsnCenterString = "QU_1~S~o~N~"
 plot(3) = gsn_csm_contour_map(wks,varsum_ne30pg3_2_f19,res)
-res@gsnCenterString = "ARCTIC"
+res@gsnCenterString = "VR_0.25~S~o~N~"
 plot(4) = gsn_csm_contour_map(wks,varsum_ARCTIC_2_f19,res)
-res@gsnCenterString = "ARCTICGRIS"
+res@gsnCenterString = "VR_0.125~S~o~N~"
 plot(5) = gsn_csm_contour_map(wks,varsum_ARCTICGRIS_2_f19,res)
 res@gsnCenterString = "ERA5"
 ;print(varsum_f09_2_f19)
@@ -522,7 +532,7 @@ plot(7) = gsn_csm_contour_map(wks,varsum_MERRA2_2_f19,res)
 res@sfXArray = plot_lon
 res@sfYArray = plot_lat
 
-res@tiYAxisString        = "ne30pg2 remapped"
+res@tiYAxisString        = "QU_1.5~S~o~N~ remapped"
 
 
 
@@ -563,7 +573,7 @@ plot(15) = gsn_csm_contour_map(wks,varsum_MERRA2_2_pg2,res)
   resP@gsnPanelLabelBar = True
   resP@lbBoxSeparatorLinesOn= False
   resP@gsnPanelBottom   = 0.1
-  resP@lbTitleString              = "number times ARs intersect gridcell"
+  resP@lbTitleString              = "Number of times ARs intersect gridcell"
   ;resP@lbTitleString              = lbtitle
   resP@lbTitlePosition            = "Bottom"
   resP@lbTitleFontHeightF         = 0.015

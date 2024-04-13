@@ -5,7 +5,7 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/esmf/ESMF_regridding.ncl"
-load "/gpfs/fs1/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
+load "/glade/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
 ;**************************************
 begin
 ;****************************************
@@ -38,6 +38,24 @@ begin
               "f. ARCTICGRIS", \
 	      "g. MERRA2", \
 	      "h. ERA5"/)
+
+  runnams1 = (/"a.", \
+              "b.", \
+              "c.", \
+              "d.", \
+              "e.", \
+              "f.", \
+              "g.", \
+              "h."/)
+
+  labels = (/"LL_2~S~o~N~", \
+              "LL_1~S~o~N~", \
+              "QU_1.5~S~o~N~", \
+              "QU_1~S~o~N~", \
+              "VR_0.25~S~o~N~", \
+              "VR_0.125~S~o~N~", \
+              "ERA5", \
+              "MERRA2"/)
 
   nfiles = dimsizes(fname1)
 
@@ -210,7 +228,9 @@ begin
    delete(var@units)
    delete(var@standard_name)
 
-   res@gsnCenterStringFontHeightF = 0.01
+   res@gsnCenterStringFontHeightF = 0.03
+   res@gsnCenterString = labels(n)
+
    plot(n) = gsn_csm_contour_map(wks,var,res)
    delete(var)
 
@@ -235,10 +255,11 @@ begin
 
   resP@gsnPanelFigureStrings = runnams
   ;resP@gsnPanelFigureStrings = (/"a.","b.","c.","d.","e.","f.","g."/)
-  resP@gsnPanelFigureStringsFontHeightF = 0.009
+  resP@gsnPanelFigureStringsFontHeightF = 0.012
   resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "TopLeft"
+  resP@amJust           = "BottomRight"
 
   resP@gsnPanelLabelBar = False
   resP@gsnPanelLabelBar = True

@@ -5,7 +5,7 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/esmf/ESMF_regridding.ncl"
-load "/gpfs/fs1/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
+load "/glade/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
 ;**************************************
 begin
   p0 = 1000.d2
@@ -105,6 +105,15 @@ labels = (/"f19", \
            "ERA5", \
            "MERRA2"/)
 
+labels  = (/"LL_2~S~o~N~", \
+            "LL_1~S~o~N~", \
+            "QU_1.5~S~o~N~", \
+            "QU_1~S~o~N~", \
+            "VR_0.25~S~o~N~", \
+            "VR_0.125~S~o~N~", \
+            "ERA5", \
+            "MERRA2"/)
+
   colors = (/"blue","deepskyblue","green4","green","darkorchid4","magenta","black","black","grey49"/)
 
 ;******************************************************
@@ -122,11 +131,11 @@ labels = (/"f19", \
 
   if (inttop) then
     yaxis1 = "Cumulative Precip (mm)"
+    yaxis1 = "Precip Rate (mm)"
   else
     yaxis1 = "Precip Rate (mm/day)"
   end if  
   yaxis2 = yaxis1
-  ;;yaxis2 = "Precip Rate (mm/day)"
 
   ymin1 = 0.
   ymax1 = 75.
@@ -137,6 +146,7 @@ labels = (/"f19", \
 
   if (inttop) then
     yaxis3 = "Area Int Cumulative Precip (Gt)"
+    yaxis3 = "Area Int Precip. (Gt)"
   else
     yaxis3 = "Area Int Precip (Gt/day)"
   end if

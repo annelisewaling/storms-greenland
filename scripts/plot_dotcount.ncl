@@ -5,7 +5,7 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/esmf/ESMF_regridding.ncl"
-load "/gpfs/fs1/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
+load "/glade/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
 ;**************************************
 begin
 ;****************************************
@@ -72,12 +72,21 @@ begin
 	      "MERRA2", \
 	      "ERA5"/)
 
+  runnams = (/"LL_2~S~o~N~", \
+              "LL_1~S~o~N~", \
+              "QU_1.5~S~o~N~", \
+              "QU_1~S~o~N~", \
+              "VR_0.25~S~o~N~", \
+              "VR_0.125~S~o~N~", \
+              "ERA5", \
+              "MERRA2"/)
+
   VAR = "mapcount"
   factor = 1.
 
   colors = (/"blue","red4","deepskyblue","red"/)
 
-  pltNam = "temp_contours"
+  pltNam = "temp_dotcount"
 
 ;******************************************************
 ; create plot
@@ -213,8 +222,9 @@ begin
   restx@txFontHeightF      = 0.015                 ; change text size
   restx@txJust             = "CenterLeft"          ; text justification
 
-  labels = (/"ESMF-f19","ESMF-pg2","TR-f19","TR-pg2"/)
+  labels = (/"ESMF-LL_2~S~o~N~","ESMF-QU_1.5~S~o~N~","TR-LL_2~S~o~N~","TR-QU_1.5~S~o~N~"/)
   xx = (/0.25,0.40,0.55,0.67/)
+  xx = (/0.235,0.385,0.565,0.685/)
   yy = 0.03;;0.05
 
   do m=0,3
@@ -225,7 +235,7 @@ begin
   end do
   delete(xx)
 
-  resg@gsMarkerColor = "grey10";"grey69"
+  resg@gsMarkerColor = "grey69"
   yy = 0.065;;0.02
 
   xx = 0.385
@@ -252,7 +262,7 @@ begin
   resP@gsnFrame         = False                  ; don't advance panel plot
 
   resP@gsnPanelFigureStrings = runnams
-  resP@gsnPanelFigureStringsFontHeightF = 0.015
+  resP@gsnPanelFigureStringsFontHeightF = 0.012
   ;resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "TopLeft"

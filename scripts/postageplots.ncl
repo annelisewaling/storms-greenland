@@ -5,7 +5,7 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/esmf/ESMF_regridding.ncl"
-load "/gpfs/fs1/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
+load "/glade/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
 ;**************************************
 begin
 ;****************************************
@@ -75,6 +75,15 @@ begin
               "ARCTICGRIS", \
 	      "ERA5", \
 	      "MERRA2"/)
+
+  runnam  = (/"LL_2~S~o~N~", \
+              "LL_1~S~o~N~", \
+              "QU_1.5~S~o~N~", \
+              "QU_1~S~o~N~", \
+              "VR_0.25~S~o~N~", \
+              "VR_0.125~S~o~N~", \
+              "ERA5", \
+              "MERRA2"/)
 
   nfiles = dimsizes(fname)
 
@@ -183,6 +192,8 @@ begin
    res@mpMinLatF = 45.;;20.
    res@mpMaxLatF = 85.
 
+   res@gsnLeftStringFontHeightF = 0.012
+
    resc = True
    resc@gsnMaximize = False
    resc@gsnDraw     = False      
@@ -194,8 +205,8 @@ begin
 
    resp1 = True
    resp1 = resc
-   resp1@cnLineColor = "blue";;"red"
-   resp1@cnLineThicknessF = 1.5
+   resp1@cnLineColor = "magenta";;""blue";;"red"
+   resp1@cnLineThicknessF = 2.0;;1.5
    resp1@cnLevelSelectionMode = "ExplicitLevels"
    ;;resp1@cnLevels = (/1.,10000./)
    resp1@cnLevels = (/80.,120./)
@@ -643,7 +654,7 @@ begin
   ;;resP@gsnPaperOrientation = "landscape"
 
   resP@gsnPanelFigureStrings = runnams
-  resP@gsnPanelFigureStringsFontHeightF = 0.005
+  resP@gsnPanelFigureStringsFontHeightF = 0.008;;0.005
   resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "TopLeft"
@@ -655,7 +666,7 @@ begin
   resP@lbTitlePosition            = "Bottom"
   resP@lbTitleFontHeightF         = 0.015
   resP@lbLabelFontHeightF         = 0.01
-  resP@pmLabelBarOrthogonalPosF   = -0.02
+  resP@pmLabelBarOrthogonalPosF   = -0.025
 
   resP@gsnPanelTop     = 0.95
   resP@gsnPanelBottom     = 0.05

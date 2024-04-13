@@ -5,7 +5,7 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/esmf/ESMF_regridding.ncl"
-load "/gpfs/fs1/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
+load "/glade/work/aherring/CESM2/arh-git-scripts/ncl/se_func_lib.ncl"
 ;**************************************
 begin
   p0 = 1000.d2
@@ -523,6 +523,15 @@ labels = (/"f19", \
            "ERA5", \
            "MERRA2"/)
 
+labels  = (/"LL_2~S~o~N~", \
+            "LL_1~S~o~N~", \
+            "QU_1.5~S~o~N~", \
+            "QU_1~S~o~N~", \
+            "VR_0.25~S~o~N~", \
+            "VR_0.125~S~o~N~", \
+            "ERA5", \
+            "MERRA2"/)
+
   colors = (/"blue","deepskyblue","green4","green","darkorchid4","magenta","black","black","grey49"/)
 
   pltNam = "temp_expand"
@@ -572,14 +581,14 @@ labels = (/"f19", \
    ;;res@gsnXRefLine = 500.
 
    res@tmGridDrawOrder = "PreDraw"
-   res@tmXMajorGrid= True
+   res@tmXMajorGrid= False
    res@tmXMajorGridLineColor = "grey40"
    res@tmXMajorGridThicknessF      = 1.
    ;;res@tmXMinorGrid= True
    res@tmXMinorGridLineColor = "grey40"
    res@tmXMinorGridThicknessF      = 1.
    res@tmXMinorGridLineDashPattern = 2
-   res@tmYMajorGrid= True
+   res@tmYMajorGrid= False
    res@tmYMajorGridLineColor = "grey40"
    res@tmYMajorGridThicknessF      = 1.
    ;;res@tmYMinorGrid= True
@@ -599,13 +608,13 @@ labels = (/"f19", \
 
   dtcam = 0.25
 
-  yaxisa = "Cumulative Precip (mm)"
+  yaxisa = "Precip Rate (mm)"
   ymin1 = 0.
   ymax1 = 75.
   ymin2 = 0.
   ymax2 = 190.
 
-  yaxisb = "Area Int Cumulative Precip (Gt)"
+  yaxisb = "Area Int Precip (Gt)"
   ymin3 = 0.
   ymax3 = 9.
   ymin4 = 0.
@@ -863,8 +872,8 @@ labels = (/"f19", \
    end if
 
    if (n.eq.nxtra) then
-     res@xyDashPatterns = 2
-     res@xyLineThicknessF = 2
+     res@xyDashPatterns = 14;;2
+     res@xyLineThicknessF = 4;;2
      tmp = gsn_csm_xy(wks,rdist,lines1b,res)
      overlay(plot(1),tmp)
      delete(tmp)
@@ -943,8 +952,8 @@ labels = (/"f19", \
  resln             = True
  resln@gsLineThicknessF = res@xyLineThicknessF
 
- yy = (/0.74,0.725,0.71,0.695,0.68,0.665,0.65,0.635/)-0.07
- xx = 0.8
+ yy = (/0.74,0.725,0.71,0.695,0.68,0.665,0.65,0.635/)-0.075;;-0.07
+ xx = 0.82;;0.8
  dx = 0.03
  do n = 0,nmodel-1
    resln@gsLineColor = colors(n)
@@ -977,7 +986,7 @@ labels = (/"f19", \
 
   ;;resP@txString = plotTitle
   resP@gsnPanelFigureStrings= (/"a.","b.","c.","d."/)
-  resP@gsnPanelFigureStringsFontHeightF = 0.010
+  resP@gsnPanelFigureStringsFontHeightF = 0.012
   resP@gsnPanelFigureStringsPerimOn     = True
   resP@gsnPanelFigureStringsBackgroundFillColor = "white"
   resP@amJust           = "BottomRight"

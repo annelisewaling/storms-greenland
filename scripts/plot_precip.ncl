@@ -146,7 +146,7 @@ labels  = (/"LL_2~S~o~N~", \
 
   if (inttop) then
     yaxis3 = "Area Int Cumulative Precip (Gt)"
-    yaxis3 = "Area Int Precip. (Gt)"
+    yaxis3 = "Area Int Precip (Gt)"
   else
     yaxis3 = "Area Int Precip (Gt/day)"
   end if

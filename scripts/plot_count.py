@@ -13,10 +13,15 @@ import seaborn as sns
 #rc('mathtext', default='regular')
 
 #%%
+degsign = u'\N{DEGREE SIGN}'
+
+names = ["LL_2"+degsign,"LL_1"+degsign,"QU_1.5"+degsign,"QU_1"+degsign,
+         "VR_0.25"+degsign,"VR_0.125"+degsign,"ERA5","MERRA2"]
 
 dfARs = pd.read_csv('ARclimatology.csv',delimiter=",",comment='#',header=0)
 
-dfARs.set_index(dfARs['gridname'], drop = True, inplace = True)
+dfARs.index = names
+#dfARs.set_index(dfARs['gridname'], drop = True, inplace = True)
 
 dfARs.drop(columns=['gridname'], inplace = True)
 
